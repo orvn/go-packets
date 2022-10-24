@@ -1,0 +1,20 @@
+package main
+
+import (
+	"fmt"
+	"net"
+)
+
+func main() {
+	for i := 1; i <= 1024; i++ {
+		// todo: select ports or port range
+		address := fmt.Sprintf("scanme.nmap.org:%d", i)
+		conn, err := net.Dial("tcp", address)
+		if err != nil {
+			// either the port is firewalled/filtered or closed
+			continue
+		}
+		conn.Close()
+		fmt.Printf("Local port %d is open\n", i)
+	}
+}
